@@ -1,4 +1,4 @@
-#CS283 Warmup Assignment                                                                                                
+CS283 Warmup Assignment                                                                                                
 
 1. Select with an x the platform you will be using for your course deliverables:
 
@@ -25,5 +25,4 @@ skills.
 
 5. Briefly describe any concerns you might be having with being successful in this class (if any).
 
-Some concerns I might have with being successful in this class is balancing the workload along with all my other classe,
-I will need to build a good schedule within the first few weeks.
+Some concerns I might have with being successful in this class is balancing the workload along with all my other classes, I will need to build a schedule within the first few weeks.
