@@ -85,7 +85,7 @@
 		cmd_buff[strcspn(cmd_buff,"\n")] = '\0';
 
 		// if no input or input is a space
-		if(*cmd_buff == '\0' || strspn(cmd_buff, " ")){
+		if(*cmd_buff == '\0' || strspn(cmd_buff, " ") == strlen(cmd_buff)){
 			printf("%s\n", CMD_WARN_NO_CMD);
 			continue;
 		}

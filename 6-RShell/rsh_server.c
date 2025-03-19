@@ -210,14 +210,15 @@ int process_cli_requests(int svr_socket){
 			return ERR_RDSH_COMMUNICATION;
 		}
 		rc = exec_client_requests(cli_socket);
+		close(cli_socket);
 		if(rc == OK_EXIT){
+			stop_server(svr_socket);
 			break;
 		}
         // TODO use the accept syscall to create cli_socket 
         // and then exec_client_requests(cli_socket)
     }
 
-    stop_server(cli_socket);
     return rc;
 }
 
@@ -285,7 +286,8 @@ int exec_client_requests(int cli_socket) {
         // TODO use recv() syscall to get input
 		char *commands[ARG_MAX];
 		int count = 0;
-		char *cmd = strtok(io_buff, "|");
+		char *saveptr;
+		char *cmd = strtok_r(io_buff, "|", &saveptr);
 		while (cmd != NULL) {
 			commands[count] = cmd;
 			count++;
@@ -330,7 +332,6 @@ int exec_client_requests(int cli_socket) {
 		send_message_eof(cli_socket);
 		free(io_buff);
 		return OK;
-		 	
 
         // TODO send_message_eof when done
     }

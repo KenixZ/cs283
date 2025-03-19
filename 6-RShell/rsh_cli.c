@@ -99,8 +99,8 @@ int exec_remote_cmd_loop(char *address, int port)
     int is_eof;
 
     // TODO set up cmd and response buffs
-	 cmd_buff = (char *)malloc(RDSH_COMM_BUFF_SZ*sizeof(char));
-	 rsp_buff = (char *)malloc(RDSH_COMM_BUFF_SZ*sizeof(char));
+	 cmd_buff = (char *)malloc(RDSH_COMM_BUFF_SZ);
+	 rsp_buff = (char *)malloc(RDSH_COMM_BUFF_SZ);
 
     cli_socket = start_client(address,port);
     if (cli_socket < 0){
@@ -119,7 +119,7 @@ int exec_remote_cmd_loop(char *address, int port)
 		cmd_buff[strcspn(cmd_buff, "\n")] = '\0';
         // TODO fgets input
 
-		if(send(cli_socket, cmd_buff, strlen(cmd_buff), 0) == -1){
+		if(send(cli_socket, cmd_buff, strlen(cmd_buff)+1, 0) == -1){
 			perror("send");
 			break;
 		}
@@ -143,6 +143,9 @@ int exec_remote_cmd_loop(char *address, int port)
 
         // TODO break on exit command
 		if(strcmp(cmd_buff, EXIT_CMD)==0){
+			break;
+		}
+		if(strcmp(cmd_buff, "stop-server") == 0){
 			break;
 		}
     }
